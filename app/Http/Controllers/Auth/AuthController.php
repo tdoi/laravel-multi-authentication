@@ -12,7 +12,9 @@ class AuthController extends Controller
 
     public function __construct() {
         $this->role = detect_role();
-        $this->package = empty($this->role) ? '' : Str::camel($this->role);
+        $camel = Str::camel($this->role);
+        $camel[0] = strtoupper($camel[0]);
+        $this->package = empty($this->role) ? '' : $camel;
     }
 
     public function route($route): string
