@@ -3,7 +3,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
@@ -37,9 +36,5 @@ class AuthController extends Controller
             return User::class;
         }
         return '\\App\\Models\\' . $this->package;
-    }
-
-    public function user(Request $request) {
-        return $request->user($this->role);
     }
 }
