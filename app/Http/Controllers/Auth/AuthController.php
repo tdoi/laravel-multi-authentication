@@ -15,10 +15,6 @@ class AuthController extends Controller
         $this->package = empty($this->role) ? '' : Str::camel($this->role);
     }
 
-    public function getRole() {
-        return $this->role;
-    }
-
     public function route($route): string
     {
         if (empty($this->role)) {
@@ -40,5 +36,9 @@ class AuthController extends Controller
             return User::class;
         }
         return '\\App\\Models\\' . $this->package;
+    }
+
+    public function user($request) {
+        return $request->user($this->role);
     }
 }

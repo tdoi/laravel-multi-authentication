@@ -20,7 +20,7 @@ class PasswordController extends AuthController
             'password' => ['required', Password::defaults(), 'confirmed'],
         ]);
 
-        $request->user($this->getRole())->update([
+        $this->user($request)->update([
             'password' => Hash::make($validated['password']),
         ]);
 
