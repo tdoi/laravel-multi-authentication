@@ -17,7 +17,12 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/dashboard';
+    private const HOME = '/dashboard';
+
+    public static function home() {
+        $role = detect_role();
+        return empty($role) ? self::HOME : '/' . $role . self::HOME;
+    }
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.

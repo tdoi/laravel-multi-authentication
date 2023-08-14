@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
-class PasswordController extends Controller
+class PasswordController extends AuthController
 {
     /**
      * Update the user's password.
@@ -20,7 +20,7 @@ class PasswordController extends Controller
             'password' => ['required', Password::defaults(), 'confirmed'],
         ]);
 
-        $request->user()->update([
+        $request->user($this->getRole())->update([
             'password' => Hash::make($validated['password']),
         ]);
 

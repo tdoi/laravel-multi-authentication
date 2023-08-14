@@ -14,14 +14,14 @@ use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class RegisteredUserController extends Controller
+class RegisteredUserController extends AuthController
 {
     /**
      * Display the registration view.
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Register');
+        return Inertia::render($this->resource('Auth/Register'));
     }
 
     /**
@@ -37,7 +37,8 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
+        $modelName = $this->modelName();
+        $user = $modelName::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -47,6 +48,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect(RouteServiceProvider::home());
     }
 }

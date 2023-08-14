@@ -10,14 +10,14 @@ use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class PasswordResetLinkController extends Controller
+class PasswordResetLinkController extends AuthController
 {
     /**
      * Display the password reset link request view.
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/ForgotPassword', [
+        return Inertia::render($this->resource('/Auth/ForgotPassword'), [
             'status' => session('status'),
         ]);
     }

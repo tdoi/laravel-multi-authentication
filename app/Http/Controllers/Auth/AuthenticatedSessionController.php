@@ -9,18 +9,19 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class AuthenticatedSessionController extends Controller
+class AuthenticatedSessionController extends AuthController
 {
     /**
      * Display the login view.
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Login', [
-            'canResetPassword' => Route::has('password.request'),
+        return Inertia::render($this->resource('Auth/Login'), [
+            'canResetPassword' => Route::has($this->route('password.request')),
             'status' => session('status'),
         ]);
     }
@@ -34,7 +35,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect()->intended(RouteServiceProvider::home());
     }
 
     /**
